@@ -17,13 +17,12 @@ namespace DOMDemo.Controllers
 
         public IActionResult Test()
         {
-
             return View();
         }
 
-        public IActionResult Result(string FirstName, string LastName)
+        public IActionResult Result(string FirstName, string LastName, string Email, string Phone, string Password, string VPassword)
         {
-            return Content($"Welcome, {FirstName} {LastName}");
+            return Content($"Welcome, {FirstName} {LastName}. {Email} {Phone} {Password} {VPassword}");
         }
 
 

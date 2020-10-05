@@ -9,7 +9,9 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Test</title>
-    <style>
+    
+        <style>
+            <!--
         .redbackground {
             background-color: red;
         }
@@ -20,13 +22,14 @@
         }
     </style>
     <style>
-        .gbackground {
-            background-color: green;
+        div:invalid form{
+
         }
     </style>
-    <script>
 
-        //alert('Starting Up!');
+        
+
+    <script>
 
         function changeClass() {
             let q = document.getElementById('block1');
@@ -34,10 +37,7 @@
 
         }
 
-        function doSomething(fun) {
-            fun();
-        }
-
+        
         let obj = {
             len: 10,
             wid: 20,
@@ -48,26 +48,62 @@
         }
 
         function submitForm() {
-            let first = document.getElementById('FirstNameElem');
-            let last = document.getElementById('LastNameElem');
-            first.value = first.value.toUpperCase();
-            last.value = last.value.toUpperCase();
+            let first = document.getElementById('FirstName');
+            let last = document.getElementById('LastName');
+            let email = document.getElementById('Email');
+            let phone = document.getElementById('Phone');
+            let pass = document.getElementById('Password');
+            let vpass = document.getElementById('VPassword');
 
-            if (first.value == 'YEETY') {
-                let block1 = document.getElementById('block1');
-                block1.innerHTML = 'Jeff is not welcome';
+            var E = /\S+\S+\.\S+/;
+            var P = /^(?=.*[0-9])(?=.*[!#$%^&*])[a-zA-Z0-9!#$%^&*]{6,16}$/;
+            var US = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/;
+
+            //emailValid(email);
+
+            if (first.value.length < 2) {
+                alert("First name must be at least 2 characters");
+
                 return false;
             }
+            else if (last.value.length < 2) {
+                alert("Last name must at least 2 characters");
+
+                return false;
+            }
+            else if (!E.test(email.value)) {
+                alert("Email address is not valid");
+                return false;
+            }
+            else if (!US.test(phone.value)) {
+                alert("Not a valid phone number");
+                return false;
+            }
+
+            else if (!P.test(pass.value)) {
+                alert("Password does not match");
+                return false;
+            }
+            else if (!P.test(vpass.value)) {
+                alert("Password does not match");
+                return false;
+            }
+            else if (pass.value != vpass.value) {
+                alert("Password does not match");
+            }
+
             else {
                 return true;
             }
 
         }
 
+
     </script>
 </head>
 <body>
-    <h1>
+    <!--
+        <h1>
         Hello <b>World</b>
     </h1>
 
@@ -83,14 +119,32 @@
 
     <button onclick="alert('Hello')">Click Me</button>
     <button onclick="changeClass()">Change Style</button>
-    <script>
-        //alert('Second Alert')
-    </script>
+        required pattern="^(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?$"
 
-    <form method="get" action="/home/result">
-        First Name: <input type="text" name="FirstName" id="FirstNameElem"/><br />
-        Last Name: <input type="text" name="LastName" id="LastNameElem"/><br/>
-        <input type="submit" onclick="submitForm()"/>
+
+        -->
+
+
+    <form method="get" action="/home/result" onsubmit="return submitForm()">
+        First Name: <input type="text" name="FirstName" id="FirstName" min="2" max="20"/><br />
+        <div id="invalidFName" style="visibility:hidden">First name must be longer than 2 characters</div><br />
+
+        Last Name: <input type="text" name="LastName" id="LastName" min="2"/><br />
+        <div id="invalidLName" style="visibility:hidden">Last name must be longer than 2 characters</div><br />
+
+        Email: <input type="email" id="Email" name="Email" /><br />
+        <br />
+
+        Phone: <input type="tel" id="Phone" name="Phone" /><br/>
+        <br />
+
+        Password:<input type="password" name="Password" id="Password" min="6" max="16"/><br />
+        <br />
+
+        Verify Password:<input type="password" name="VPassword" id="VPassword" min="6" max="16"/><br />
+        <br />
+
+        <input type="submit"/>
 
     </form>
 
