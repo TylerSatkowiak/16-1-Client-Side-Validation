@@ -22,7 +22,7 @@ namespace DOMDemo.Controllers
 
         public IActionResult Result(string FirstName, string LastName, string Email, string Phone, string Password, string VPassword)
         {
-            return Content($"Welcome, {FirstName} {LastName}. {Email} {Phone} {Password} {VPassword}");
+            return Content($"Welcome, {FirstName} {LastName}. Email: {Email} Phone Number:{Phone} Passwords:{Password} {VPassword}");
         }
 
 
